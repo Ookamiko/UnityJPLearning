@@ -7,13 +7,18 @@ public class PlayerController : MonoBehaviour
     public float speed = 15.0f;
     public float turnSpeed = 2.0f;
 
+    // Switch camera
+    public Camera topView;
+    public Camera driverView;
+
     private float horizontalInput;
     private float forwardInput;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        topView.enabled = true;
+        driverView.enabled = false;
     }
 
     // Update is called once per frame
@@ -28,5 +33,12 @@ public class PlayerController : MonoBehaviour
 
         // Turn (only when moving)
         transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput * (forwardInput != 0 ? 1 : 0));
+
+        // Change Camera
+        if (Input.GetButtonDown("Change Camera"))
+        {
+            topView.enabled = !topView.enabled;
+            driverView.enabled = !driverView.enabled;
+        }
     }
 }
