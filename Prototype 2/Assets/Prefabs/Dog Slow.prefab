@@ -2915,6 +2915,8 @@ GameObject:
   - component: {fileID: 2170241853193528991}
   - component: {fileID: 2170241854761996711}
   - component: {fileID: -1826024376893757992}
+  - component: {fileID: 6446844894363190514}
+  - component: {fileID: -4815713777682601576}
   m_Layer: 0
   m_Name: Dog Slow
   m_TagString: Untagged
@@ -3018,7 +3020,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topBoundary: 50
-  bottomBoundary: -10
+  bottomBoundary: -5
+--- !u!65 &6446844894363190514
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2170241853203005359}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.118744515, y: 0.22995894, z: 0.29010114}
+  m_Center: {x: -0.0010771652, y: 0.091986895, z: 0.032268047}
+--- !u!114 &-4815713777682601576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2170241853203005359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c1a4aee273e41644ae1ebdf5a6bd250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2170241853203005907
 GameObject:
   m_ObjectHideFlags: 0
