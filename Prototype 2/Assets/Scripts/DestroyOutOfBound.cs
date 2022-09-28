@@ -9,10 +9,12 @@ public class DestroyOutOfBound : MonoBehaviour
     public float leftBoundary = 50.0f;
     public float rightBoundary = 50.0f;
 
+    private GameObject interfaceObject;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        interfaceObject = GameObject.Find("Interface");
     }
 
     // Update is called once per frame
@@ -25,7 +27,10 @@ public class DestroyOutOfBound : MonoBehaviour
 
             if (gameObject.tag == "Enemy")
             {
-                Debug.Log("Game Over!");
+                if (interfaceObject != null)
+                {
+                    interfaceObject.GetComponent<InterfaceLogic>().LoseLive();
+                }
             }
         }
     }

@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DestroyOnCollide : MonoBehaviour
 {
+    private GameObject interfaceObject;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        interfaceObject = GameObject.Find("Interface");
     }
 
     // Update is called once per frame
@@ -23,9 +23,18 @@ public class DestroyOnCollide : MonoBehaviour
         if (other.tag == "Projectile")
         {
             Destroy(other.gameObject);
-        } else if (other.tag == "Player")
+
+            if (interfaceObject != null)
+            {
+                interfaceObject.GetComponent<InterfaceLogic>().AddScore();
+            }
+        }
+        else if (other.tag == "Player")
         {
-            Debug.Log("Touch: Game Over !");
+            if (interfaceObject != null)
+            {
+                interfaceObject.GetComponent<InterfaceLogic>().LoseLive();
+            }
         }
     }
 }
