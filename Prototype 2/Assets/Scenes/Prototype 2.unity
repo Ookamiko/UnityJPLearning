@@ -295,7 +295,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  xRange: 20
+  topBoundary: 15
+  bottomBoundary: 0
+  leftBoundary: -30
+  rightBoundary: 30
   projectilePrefab: {fileID: 6707113215785871109, guid: 5a2f4c6318b8e8d45b1a9ed14494214b, type: 3}
 --- !u!1 &425805626
 GameObject:
@@ -592,7 +595,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7169122e91e1981469b2b6045ddf7963, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 7169122e91e1981469b2b6045ddf7963, type: 3}
       propertyPath: m_LocalPosition.y

@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 10.0f;
-    public float xRange = 10.0f;
+    public float topBoundary = 10.0f;
+    public float bottomBoundary = 10.0f;
+    public float leftBoundary = 10.0f;
+    public float rightBoundary = 10.0f;
 
     public GameObject projectilePrefab;
-
-    private float horizontalInput;
 
     // Start is called before the first frame update
     void Start()
@@ -20,15 +21,25 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime);
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        Vector3 translation = (Vector3.right * horizontalInput + Vector3.forward * verticalInput) * speed * Time.deltaTime;
+        transform.Translate(translation);
 
-        if (transform.position.x < -xRange)
+        if (transform.position.x < leftBoundary)
         {
-            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
-        } else if (transform.position.x > xRange)
+            transform.position = new Vector3(leftBoundary, transform.position.y, transform.position.z);
+        } else if (transform.position.x > rightBoundary)
         {
-            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
+            transform.position = new Vector3(rightBoundary, transform.position.y, transform.position.z);
+        }
+
+        if (transform.position.z < bottomBoundary)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, bottomBoundary);
+        } else if (transform.position.z > topBoundary)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, topBoundary);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
