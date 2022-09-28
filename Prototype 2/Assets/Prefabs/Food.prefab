@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topBoundary: 20
   bottomBoundary: -5
-  leftBoundary: 50
+  leftBoundary: -50
   rightBoundary: 50
 --- !u!65 &-9001472541078716934
 BoxCollider:

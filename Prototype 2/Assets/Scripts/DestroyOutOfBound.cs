@@ -18,27 +18,15 @@ public class DestroyOutOfBound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z > topBoundary)
+        if (transform.position.z > topBoundary || transform.position.z < bottomBoundary ||
+            transform.position.x < leftBoundary || transform.position.x > rightBoundary)
         {
-            // Food despawn
             Destroy(gameObject);
-        } else if (transform.position.z < bottomBoundary)
-        {
-            // Animal despawn
-            Destroy(gameObject);
-            Debug.Log("Game Over!");
-        }
 
-        if (transform.position.x < leftBoundary)
-        {
-            // Animal despawn
-            Destroy(gameObject);
-            Debug.Log("Game Over!");
-        } else if (transform.position.x > rightBoundary)
-        {
-            // Animal despawn
-            Destroy(gameObject);
-            Debug.Log("Game Over!");
+            if (gameObject.tag == "Enemy")
+            {
+                Debug.Log("Game Over!");
+            }
         }
     }
 }
