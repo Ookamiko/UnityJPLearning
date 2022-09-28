@@ -19,6 +19,13 @@ public class DestroyOnCollide : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
-        Destroy(other.gameObject);
+
+        if (other.tag == "Projectile")
+        {
+            Destroy(other.gameObject);
+        } else if (other.tag == "Player")
+        {
+            Debug.Log("Touch: Game Over !");
+        }
     }
 }

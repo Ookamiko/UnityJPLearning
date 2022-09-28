@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5312665451553131985}
   m_Layer: 0
   m_Name: Food
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,6 +112,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topBoundary: 20
   bottomBoundary: -5
+  leftBoundary: 50
+  rightBoundary: 50
 --- !u!65 &-9001472541078716934
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: -5258087532108061522}
   m_Layer: 0
   m_Name: Dog Medium
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,6 +180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topBoundary: 50
   bottomBoundary: -5
+  leftBoundary: -35
+  rightBoundary: 35
 --- !u!65 &1288801809958687023
 BoxCollider:
   m_ObjectHideFlags: 0
