@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private bool isGameOver = false;
     private bool canDoubleJump = true;
     private bool isRunning = false;
+    private bool isGameStart = false;
     private DateTime startRunning;
 
     private readonly float offsetRunningPoint = 0.5f;
@@ -26,8 +27,11 @@ public class PlayerController : MonoBehaviour
 
     public float jumpAmplifier = 10.0f;
     public float gravityModifier = 1.0f;
+    public float speedFwd = 1.0f;
 
     public bool IsGameOver { get { return isGameOver; } }
+
+    public bool IsGameStart { get { return isGameStart; } }
 
     public bool IsRunning { get { return isRunning && (DateTime.Now - startRunning).TotalSeconds > offsetRunningPoint; } }
 
@@ -46,7 +50,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && (isOnGround || canDoubleJump) && !isGameOver)
+        if (!isGameStart)
+        {
+            transform.Translate(Vector3.forward * speedFwd * Time.deltaTime);
+        }
+
+        if (transform.position.x > 0)
+        {
+            transform.position = new Vector3(0, transform.position.y, transform.position.z);
+            isGameStart = true;
+            playerAnim.SetFloat("Speed_f", 1);
+            dirtParticle.Play();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && (isOnGround || canDoubleJump) && !isGameOver && isGameStart)
         {
             playerAudioSource.PlayOneShot(jumpSFX);
             playerRb.AddForce(Vector3.up * jumpAmplifier, ForceMode.Impulse);
@@ -62,14 +79,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGameStart)
         {
             isRunning = true;
             startRunning = DateTime.Now;
             playerAnim.SetFloat("RunMultiplier_f", 1.5f);
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.LeftShift) && isGameStart)
         {
             isRunning = false;
             playerAnim.SetFloat("RunMultiplier_f", 1);
@@ -82,7 +99,10 @@ public class PlayerController : MonoBehaviour
         {
             isOnGround = true;
             canDoubleJump = true;
-            dirtParticle.Play();
+            if (isGameStart)
+            {
+                dirtParticle.Play();
+            }
         } else if (collision.gameObject.tag.Equals("Obstacle"))
         {
             playerAnim.SetBool("Death_b", true);

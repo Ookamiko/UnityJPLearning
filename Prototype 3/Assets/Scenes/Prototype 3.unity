@@ -294,7 +294,7 @@ MonoBehaviour:
   - {fileID: 3526281679497483777, guid: d5afc77c67b69ba45a067708a3ae2137, type: 3}
   - {fileID: 8212439116639167160, guid: e5717cbd32410f44099cbf52cc05997d, type: 3}
   - {fileID: 4408918798594963276, guid: 6c892a73ca9f5b349871984b5124c2d6, type: 3}
-  startDelay: 2
+  startDelay: 6
   repeatTime: 3
 --- !u!4 &485475754
 Transform:
@@ -642,6 +642,7 @@ MonoBehaviour:
   crashSFX: {fileID: 8300000, guid: e7ee25a47d63b46cdaf65480d62b405c, type: 3}
   jumpAmplifier: 30
   gravityModifier: 9.81
+  speedFwd: 1.5
 --- !u!65 &849692282
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -859,7 +860,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 882e87ba7c26a9d47a4f001002357e94, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 882e87ba7c26a9d47a4f001002357e94, type: 3}
       propertyPath: m_LocalPosition.y
@@ -964,7 +965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1438565936, guid: fb82dfb8d1c7044c69afd2486befecb3, type: 3}
       propertyPath: playOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1438565936, guid: fb82dfb8d1c7044c69afd2486befecb3, type: 3}
       propertyPath: InitialModule.startSize.scalar
