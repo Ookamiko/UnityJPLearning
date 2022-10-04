@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("Ground"))
+        if (collision.gameObject.tag.Equals("Ground") && !isGameOver)
         {
             isOnGround = true;
             canDoubleJump = true;
