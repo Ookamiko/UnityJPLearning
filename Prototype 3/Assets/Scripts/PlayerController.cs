@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private Animator playerAnim;
     private AudioSource playerAudioSource;
+    private InterfaceScript interfaceScript;
 
     private bool isOnGround = true;
     private bool isGameOver = false;
     private bool canDoubleJump = true;
+    private bool isRunning = false;
+    private DateTime startRunning;
+
+    private readonly float offsetRunningPoint = 0.5f;
 
     public ParticleSystem explosionParticle;
     public ParticleSystem dirtParticle;
@@ -23,12 +29,17 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGameOver { get { return isGameOver; } }
 
+    public bool IsRunning { get { return isRunning && (DateTime.Now - startRunning).TotalSeconds > offsetRunningPoint; } }
+
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
         playerAudioSource = GetComponent<AudioSource>();
+
+        interfaceScript = GameObject.Find("Interface").GetComponent<InterfaceScript>();
+
         Physics.gravity *= gravityModifier;
     }
 
@@ -50,6 +61,19 @@ public class PlayerController : MonoBehaviour
                 canDoubleJump = false;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            isRunning = true;
+            startRunning = DateTime.Now;
+            playerAnim.SetFloat("RunMultiplier_f", 1.5f);
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            isRunning = false;
+            playerAnim.SetFloat("RunMultiplier_f", 1);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -66,7 +90,9 @@ public class PlayerController : MonoBehaviour
             explosionParticle.Play();
             playerAudioSource.PlayOneShot(crashSFX);
             dirtParticle.Stop();
-            Debug.Log("Game Over !");
+
+            interfaceScript.DisplayGameOver();
+
             isGameOver = true;
         }
     }
