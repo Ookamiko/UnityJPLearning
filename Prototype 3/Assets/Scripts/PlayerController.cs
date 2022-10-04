@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isOnGround = true;
     private bool isGameOver = false;
+    private bool canDoubleJump = true;
 
     public ParticleSystem explosionParticle;
     public ParticleSystem dirtParticle;
@@ -34,13 +35,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !isGameOver)
+        if (Input.GetKeyDown(KeyCode.Space) && (isOnGround || canDoubleJump) && !isGameOver)
         {
-            playerAnim.SetTrigger("Jump_trig");
             playerAudioSource.PlayOneShot(jumpSFX);
             playerRb.AddForce(Vector3.up * jumpAmplifier, ForceMode.Impulse);
-            isOnGround = false;
             dirtParticle.Stop();
+
+            if (isOnGround)
+            {
+                playerAnim.SetTrigger("Jump_trig");
+                isOnGround = false;
+            } else if (canDoubleJump)
+            {
+                canDoubleJump = false;
+            }
         }
     }
 
@@ -49,6 +57,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Ground"))
         {
             isOnGround = true;
+            canDoubleJump = true;
             dirtParticle.Play();
         } else if (collision.gameObject.tag.Equals("Obstacle"))
         {

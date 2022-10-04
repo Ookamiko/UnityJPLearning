@@ -250,6 +250,7 @@ MonoBehaviour:
   - {fileID: 7877077209027038444, guid: 0e386d3d62f921340bede3cddbca131a, type: 3}
   - {fileID: 3526281679497483777, guid: d5afc77c67b69ba45a067708a3ae2137, type: 3}
   - {fileID: 8212439116639167160, guid: e5717cbd32410f44099cbf52cc05997d, type: 3}
+  - {fileID: 4408918798594963276, guid: 6c892a73ca9f5b349871984b5124c2d6, type: 3}
   startDelay: 2
   repeatTime: 3
 --- !u!4 &485475754
@@ -596,7 +597,7 @@ MonoBehaviour:
   dirtParticle: {fileID: 641870021}
   jumpSFX: {fileID: 8300000, guid: 113ee460fadc340e4957a7404a9fbb27, type: 3}
   crashSFX: {fileID: 8300000, guid: e7ee25a47d63b46cdaf65480d62b405c, type: 3}
-  jumpAmplifier: 35
+  jumpAmplifier: 30
   gravityModifier: 9.81
 --- !u!65 &849692282
 BoxCollider:
