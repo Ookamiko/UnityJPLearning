@@ -34,7 +34,8 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < enemyNbr; i++)
         {
-            Instantiate(enemies[0], RandomSpawnPosition(), enemies[0].transform.rotation, transform);
+            int index = Random.Range(0, enemies.Length);
+            Instantiate(enemies[index], RandomSpawnPosition(), enemies[index].transform.rotation, transform);
         }
     }
 
