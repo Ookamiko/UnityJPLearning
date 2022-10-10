@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
     private int waveNumber = 1;
 
     public GameObject[] enemies;
-    public GameObject powerup;
+    public GameObject[] powerups;
 
     public float minSpawnRange = 5.0f;
     public float maxSpawnRange = 10.0f;
@@ -43,7 +43,8 @@ public class SpawnManager : MonoBehaviour
     {
         for(int i = 0; i < powerupNbr; i++)
         {
-            Instantiate(powerup, RandomSpawnPosition(), powerup.transform.rotation);
+            int index = Random.Range(0, powerups.Length);
+            Instantiate(powerups[index], RandomSpawnPosition(), powerups[index].transform.rotation);
         }
     }
 
