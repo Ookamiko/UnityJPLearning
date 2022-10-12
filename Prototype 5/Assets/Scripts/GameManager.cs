@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI liveText;
     public GameObject gameoverScreen;
     public GameObject titleScreen;
+    public AudioSource backgoundMusic;
+    public Slider backgroundVolume;
 
     private float spawnRate = 1.5f;
     private int score;
@@ -22,7 +24,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        backgroundVolume.onValueChanged.AddListener(UpdateVolume);
+        UpdateVolume(backgroundVolume.value);
     }
 
     // Update is called once per frame
@@ -57,6 +60,11 @@ public class GameManager : MonoBehaviour
     private void UpdateLiveDisplay()
     {
         liveText.text = "Lives: " + lives;
+    }
+
+    private void UpdateVolume(float value)
+    {
+        backgoundMusic.volume = value;
     }
 
     public void AddScore(int value)
