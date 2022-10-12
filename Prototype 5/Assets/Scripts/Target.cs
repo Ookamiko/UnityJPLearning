@@ -39,14 +39,7 @@ public class Target : MonoBehaviour
         if (!gameManager.isGameover)
         {
             Instantiate(explosionParticle, transform.position, transform.rotation);
-            if (gameObject.CompareTag("Bad"))
-            {
-                gameManager.GameOver();
-            }
-            else
-            {
-                gameManager.AddScore(score);
-            }
+            gameManager.AddScore(score);
             Destroy(gameObject);
         }
     }
@@ -55,7 +48,7 @@ public class Target : MonoBehaviour
     {
         if (!gameObject.CompareTag("Bad"))
         {
-            gameManager.GameOver();
+            gameManager.LoseLive();
         }
         Destroy(gameObject);
     }
