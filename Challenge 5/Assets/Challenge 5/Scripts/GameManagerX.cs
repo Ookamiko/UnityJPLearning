@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class GameManagerX : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI timeOverText;
     public TextMeshProUGUI gameOverText;
     public GameObject titleScreen;
     public Button restartButton; 
@@ -16,6 +18,7 @@ public class GameManagerX : MonoBehaviour
 
     private int score;
     private float spawnRate = 1.5f;
+    private Coroutine timeCountdown;
     public bool isGameActive;
 
     private float spaceBetweenSquares = 2.5f; 
@@ -28,6 +31,7 @@ public class GameManagerX : MonoBehaviour
         spawnRate /= difficulty;
         isGameActive = true;
         StartCoroutine(SpawnTarget());
+        timeCountdown = StartCoroutine(TimeCountdown());
         score = 0;
         UpdateScore(0);
         titleScreen.SetActive(false);
@@ -76,7 +80,18 @@ public class GameManagerX : MonoBehaviour
     // Stop game, bring up game over text and restart button
     public void GameOver()
     {
+        if (timeCountdown != null)
+        {
+            StopCoroutine(timeCountdown);
+        }
         gameOverText.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+        isGameActive = false;
+    }
+
+    public void TimeOver()
+    {
+        timeOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
         isGameActive = false;
     }
@@ -87,4 +102,16 @@ public class GameManagerX : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    IEnumerator TimeCountdown()
+    {
+        for (int i = 60; i > 0; i--)
+        {
+            timeText.text = "Time: " + i;
+            yield return new WaitForSeconds(1);
+        }
+
+        timeText.text = "Time: 0";
+
+        TimeOver();
+    }
 }
