@@ -36,7 +36,7 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!gameManager.isGameover)
+        if (gameManager.isGameActive)
         {
             Instantiate(explosionParticle, transform.position, transform.rotation);
             gameManager.AddScore(score);

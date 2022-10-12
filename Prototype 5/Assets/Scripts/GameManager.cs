@@ -12,14 +12,16 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI liveText;
     public GameObject gameoverScreen;
     public GameObject titleScreen;
+    public GameObject pauseScreen;
     public AudioSource backgoundMusic;
     public Slider backgroundVolume;
 
     private float spawnRate = 1.5f;
     private int score;
     private int lives;
-    
-    public bool isGameover = false;
+
+    public bool isGamePaused = false;
+    public bool isGameActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +33,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.P) && (isGameActive || isGamePaused)) {
+            TogglePause();
+        }
     }
 
     public void StartGame(int difficultyFactor)
     {
+        isGameActive = true;
         spawnRate /= difficultyFactor;
         scoreText.gameObject.SetActive(true);
         liveText.gameObject.SetActive(true);
@@ -50,6 +55,25 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void TogglePause()
+    {
+        if (isGamePaused)
+        {
+            Debug.Log("Game resumed");
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+            isGameActive = true;
+        } else
+        {
+            Debug.Log("Game paused");
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0;
+            isGameActive = false;
+        }
+
+        isGamePaused = !isGamePaused;
     }
 
     private void UpdateScoreDisplay()
@@ -69,7 +93,7 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int value)
     {
-        if (!isGameover)
+        if (isGameActive)
         {
             score += value;
             UpdateScoreDisplay();
@@ -78,7 +102,7 @@ public class GameManager : MonoBehaviour
 
     public void LoseLive()
     {
-        if (lives > 0)
+        if (isGameActive)
         {
             lives--;
             UpdateLiveDisplay();
@@ -92,14 +116,14 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        isGameover = true;
+        isGameActive = false;
         gameoverScreen.SetActive(true);
         StopCoroutine(SpawnTarget());
     }
 
     private IEnumerator SpawnTarget()
     {
-        while(!isGameover)
+        while(isGameActive)
         {
             yield return new WaitForSeconds(spawnRate);
             int index = Random.Range(0, targets.Count);
